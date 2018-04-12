@@ -17,7 +17,7 @@
 #ENTER CLASS NUMBER(s)
 #Put the section number(s) and separate with a comma. For example, '1,3,5'.
                                                                                                                     c(
-3,7
+3
                                                                                                                       ),
 # 4
 #WOULD YOU LIKE TO ADD THIS GRADE TO THE LOG?
@@ -48,9 +48,18 @@ report<-as.character(responses[1,5])
 
 
 ### INITIAL SETUP INFORMATION ###
+usePackage <- function(p) 
+{ #CREDIT TO SALEM MARAFI#
+  if (!is.element(p, installed.packages()[,1]))
+    install.packages(p, dep = TRUE) 
+  require(p, character.only = TRUE)
+}
+usePackage("rstudioapi")
+
+
 
 ##ENTER FILE LOCATION OF 'Reports' FOLDER
-file_location<-"/Volumes/GoogleDrive/My Drive/Admin/"
+file_location<-dirname(rstudioapi::getSourceEditorContext()$path)
 
 
 
@@ -87,10 +96,10 @@ file_location<-"/Volumes/GoogleDrive/My Drive/Admin/"
 
 for(i in sections){
 
-if(dir.exists(paste(file_location,"/Reports/Student_Folders/",Course,i,sep=""))){
+if(dir.exists(paste(file_location,"/Student_Folders/",Course,i,sep=""))){
   
 }else{
-  dir.create(paste(file_location,"/Reports/Student_Folders/",Course,i,sep=""))
+  dir.create(paste(file_location,"/Student_Folders/",Course,i,sep=""))
 }
 }
 
@@ -98,18 +107,13 @@ if(dir.exists(paste(file_location,"/Reports/Student_Folders/",Course,i,sep="")))
 
 ##Install or add readxl
 
-usePackage <- function(p) 
-{ #CREDIT TO SALEM MARAFI#
-  if (!is.element(p, installed.packages()[,1]))
-    install.packages(p, dep = TRUE) 
-      require(p, character.only = TRUE)
-}
+
 usePackage("readxl")
 
 ##IMPORT DATA##
 
 for(i in sections){
-assign(paste("test",i,sep=""), read_excel(path=paste(file_location,"Reports/ScoreCards/Grade_sheet.xlsx",sep=""),sheet=paste(Course,i,sep="")))
+assign(paste("test",i,sep=""), read_excel(path=paste(file_location,"/ScoreCards/Grade_sheet.xlsx",sep=""),sheet=paste(Course,i,sep="")))
 }
 
 #Save mem file
@@ -197,8 +201,8 @@ if(toupper(lg)=="YES"){
   for(i in sections){
     
     
-    if(file.exists(paste(file_location,"Reports/ScoreCards/Memory/track",i,".csv",sep=""))){
-      assign(paste("track",i,sep=""),read.csv(paste(file_location,"Reports/ScoreCards/Memory/track",i,".csv",sep="")))
+    if(file.exists(paste(file_location,"/ScoreCards/Memory/track",i,".csv",sep=""))){
+      assign(paste("track",i,sep=""),read.csv(paste(file_location,"/ScoreCards/Memory/track",i,".csv",sep="")))
       assign(paste("track",i,sep=""),eval(parse(text=paste("track",i,"[,-1]",sep=""))))
       
     }else{
@@ -263,7 +267,7 @@ if(is.na(match(zee,colnames(eval(parse(text=paste("track",i,sep=""))))))){
 
 #Write Track File
 
-write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",file_location,"Reports/ScoreCards/Memory/track",i,".csv'",sep=""))))
+write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",file_location,"/ScoreCards/Memory/track",i,".csv'",sep=""))))
 
 }else{
  
@@ -286,7 +290,7 @@ write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",fi
   
   #Write Track File
   
-  write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",file_location,"Reports/ScoreCards/Memory/track",i,".csv'",sep=""))))
+  write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",file_location,"/ScoreCards/Memory/track",i,".csv'",sep=""))))
   
 }
 }
@@ -295,8 +299,8 @@ write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",fi
   for(i in sections){
     
     
-    if(file.exists(paste(file_location,"Reports/ScoreCards/Memory/track",i,".csv",sep=""))){
-      assign(paste("track",i,sep=""),read.csv(paste(file_location,"Reports/ScoreCards/Memory/track",i,".csv",sep="")))
+    if(file.exists(paste(file_location,"/ScoreCards/Memory/track",i,".csv",sep=""))){
+      assign(paste("track",i,sep=""),read.csv(paste(file_location,"/ScoreCards/Memory/track",i,".csv",sep="")))
       assign(paste("track",i,sep=""),eval(parse(text=paste("track",i,"[,-1]",sep=""))))
       
     }else{
@@ -318,9 +322,9 @@ write.csv(eval(parse(text=paste("track",i,sep=""))),eval(parse(text=paste("'",fi
 
 
 if(length(sections)>1){
-pdf(file=paste(file_location,"Reports/Completed/",Course,"_",z,"_Classes_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
+pdf(file=paste(file_location,"/Completed/",Course,"_",z,"_Classes_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
 }else{
-	pdf(file=paste(file_location,"Reports/Completed/",Course,"_",z,"_Class_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
+	pdf(file=paste(file_location,"/Completed/",Course,"_",z,"_Class_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
 	}
 
 
@@ -891,10 +895,10 @@ dev.off()
 
 for(h in sections){
   for(i in 2:length(eval(parse(text=paste("test",h,"$Score",sep=""))))){
-    if(dir.exists(paste(file_location,"Reports/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),sep=""))){
+    if(dir.exists(paste(file_location,"/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),sep=""))){
       
     }else{
-      dir.create(paste(file_location,"Reports/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),sep=""))
+      dir.create(paste(file_location,"/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),sep=""))
  
     }
     
@@ -916,9 +920,9 @@ for(h in sections){
  
 
  if(length(sections)>1){
-    pdf(file=paste(file_location,"Reports/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),"/",eval(parse(text=paste("test",h,"$FirstName[1]",sep=""))),"_Classes_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
+    pdf(file=paste(file_location,"/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),"/",eval(parse(text=paste("test",h,"$FirstName[1]",sep=""))),"_Classes_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
     }else{
-    	    pdf(file=paste(file_location,"Reports/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),"/",eval(parse(text=paste("test",h,"$FirstName[1]",sep=""))),"_Class_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
+    	    pdf(file=paste(file_location,"/Student_Folders/",Course,h,"/",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),"_",eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep=""))),"/",eval(parse(text=paste("test",h,"$FirstName[1]",sep=""))),"_Class_",paste(sections,collapse="_"),".pdf",sep=""),width=8.2,height=11)
     	    }
 
     	    
@@ -1199,9 +1203,9 @@ text(x= 0, y= 99, labels= "A+",col="black",pos=4)
 
 rm(list=ls())
 
-######################## Version 1.6 ########################
+######################## Version 1.7 ########################
 ######################## Last Updated #######################
-########################  2018-04-10  #######################
+########################  2018-04-11  #######################
 
 
 
