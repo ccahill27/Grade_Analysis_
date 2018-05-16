@@ -5,7 +5,7 @@
 # 1
 #ENTER DATE OF ASSESSMENT (OPTIONAL:Leave blank if no date)
 
-"5 April 2018"
+"3 May 2018"
                                                                                                                 ,
 
 # 2
@@ -17,12 +17,12 @@
 #ENTER CLASS NUMBER(s)
 #Put the section number(s) and separate with a comma. For example, '1,3,5'.
                                                                                                                     c(
-3
+3,7
                                                                                                                       ),
 # 4
 #WOULD YOU LIKE TO ADD THIS GRADE TO THE LOG?
 #This means if you want to add this score to track individual students.
-"no"
+"NO"
                                                                                                                 ,
 # 5
 #WOULD YOU LIKE THE REPORT TO DISPLAY THE TIME YOU GENERATED IT?
@@ -857,7 +857,7 @@ for(h in sections){
      
      #eval(parse(text=paste("abline(lm(as.matrix(track",h,"[",i,",3:ncol(track",h,")])~c(1:(length(colnames(track",h,"))-2))))",sep="")))
      
-     mtext(paste(eval(parse(text=paste("track",h,"$FirstName[",i,"]",sep="")))," ",eval(parse(text=paste("track",h,"$LastName[",i,"]",sep=""))),sep=""),3)
+     mtext(paste(eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep="")))," ",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),sep=""),3)
      
      mtext(paste(as.character(ind_name[1,2])," ",as.character(ind_name[1,1]),sep=""),3)
      
@@ -1172,7 +1172,7 @@ legend("topright","Average",lty=3,col="red")
 
 #eval(parse(text=paste("abline(lm(as.matrix(track",h,"[",i,",3:ncol(track",h,")])~c(1:(length(colnames(track",h,"))-2))))",sep="")))
 
-mtext(paste(eval(parse(text=paste("track",h,"$FirstName[",i,"]",sep="")))," ",eval(parse(text=paste("track",h,"$LastName[",i,"]",sep=""))),sep=""),3)
+mtext(paste(eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep="")))," ",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),sep=""),3)
 
 mtext(paste(as.character(ind_name[1,2])," ",as.character(ind_name[1,1]),sep=""),3)
 
@@ -1203,9 +1203,9 @@ text(x= 0, y= 99, labels= "A+",col="black",pos=4)
 
 rm(list=ls())
 
-######################## Version 1.7 ########################
+######################## Version 1.7.1 ######################
 ######################## Last Updated #######################
-########################  2018-04-11  #######################
+########################  2018-04-26  #######################
 
 
 
