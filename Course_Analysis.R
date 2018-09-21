@@ -5,7 +5,7 @@
 # 1
 #ENTER DATE OF ASSESSMENT (OPTIONAL:Leave blank if no date)
 
-"3 May 2018"
+"17 September 2018"
                                                                                                                 ,
 
 # 2
@@ -17,12 +17,12 @@
 #ENTER CLASS NUMBER(s)
 #Put the section number(s) and separate with a comma. For example, '1,3,5'.
                                                                                                                     c(
-3,7
+3
                                                                                                                       ),
 # 4
 #WOULD YOU LIKE TO ADD THIS GRADE TO THE LOG?
 #This means if you want to add this score to track individual students.
-"NO"
+"YES"
                                                                                                                 ,
 # 5
 #WOULD YOU LIKE THE REPORT TO DISPLAY THE TIME YOU GENERATED IT?
@@ -795,7 +795,7 @@ for(h in sections){
      eval(parse(text=paste("y_mean_value<-rbind(track",h,"[1,","3:ncol(track",h,")],ind_track)",sep="")))
      
      
-     y_mean_value<-as.matrix(y_mean_value[, colSums(is.na(y_mean_value))==0],nrow=2)
+     y_mean_val<-as.matrix(y_mean_value[, colSums(is.na(y_mean_value))==0],nrow=2)
      
      total_point_num<-sum(y_mean_value[1,]*y_mean_value[2,]/100)
      
@@ -1095,8 +1095,8 @@ ind_track<-ind_track[3:ncol(ind_track)]
   
 
 par(mfrow=c(1,1),xpd=TRUE)
-  
-  
+
+
 #Old code  
 #eval(parse(text=paste("plot(1:(ncol(track",h,")-2),track",h,"[",i,",3:ncol(track",h,")],xlim=c(0,ncol(track",h,")-1),ylim=c(30,110),xaxt='n',pch=19,ylab='Grade (%)',axes=FALSE,xlab='Assessment',main='Grades of Major Assessments')",sep="")))  
 #
@@ -1110,7 +1110,7 @@ eval(parse(text=paste("plot(as.numeric(ind_track),xlim=c(0,ncol(track",h,")-1),y
 eval(parse(text=paste("y_mean_value<-rbind(track",h,"[1,","3:ncol(track",h,")],ind_track)",sep="")))
 
 
-y_mean_value<-as.matrix(y_mean_value[, colSums(is.na(y_mean_value))==0],nrow=2)
+y_mean_val<-as.matrix(y_mean_value[, colSums(is.na(y_mean_value))==0],nrow=2)
 
 total_point_num<-sum(y_mean_value[1,]*y_mean_value[2,]/100)
 
@@ -1174,7 +1174,7 @@ legend("topright","Average",lty=3,col="red")
 
 mtext(paste(eval(parse(text=paste("test",h,"$FirstName[",i,"]",sep="")))," ",eval(parse(text=paste("test",h,"$LastName[",i,"]",sep=""))),sep=""),3)
 
-mtext(paste(as.character(ind_name[1,2])," ",as.character(ind_name[1,1]),sep=""),3)
+#mtext(paste(as.character(ind_name[1,2])," ",as.character(ind_name[1,1]),sep=""),3)
 
 text(x= 0, y= 68, labels= "F",col="black",pos=4)
 text(x= 0, y= 70, labels= "D-",col="black",pos=4)
@@ -1203,9 +1203,9 @@ text(x= 0, y= 99, labels= "A+",col="black",pos=4)
 
 rm(list=ls())
 
-######################## Version 1.7.1 ######################
+######################## Version 1.7.2 ######################
 ######################## Last Updated #######################
-########################  2018-04-26  #######################
+########################  2018-09-07  #######################
 
 
 
